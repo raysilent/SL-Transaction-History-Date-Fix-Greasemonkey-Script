@@ -4,7 +4,6 @@
 // @description L$ Transaction History Date Fix From Local To SLT
 // @match       https://accounts.secondlife.com/transaction_history*
 // @include     https://accounts.secondlife.com/transaction_history*
-// @version     1
 // @grant       none
 // @copyright   2014, Ray Silent
 // ==/UserScript==
