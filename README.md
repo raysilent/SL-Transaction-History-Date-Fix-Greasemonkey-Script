@@ -9,6 +9,6 @@ That was a script to fix temporary bug in Second Life L$ Transaction History whi
 The bug is now fixed, so I'm only keeping this here for history.
 
 
-Refereneces:
+References:
 
 https://jira.secondlife.com/browse/BUG-6335
