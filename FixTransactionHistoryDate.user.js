@@ -24,7 +24,8 @@ function todayButton() {
         var clone = node.cloneNode(true);
         clone.textContent = "Today";
         //var today = new Date().toLocaleString("en-US", {timeZone: "America/Los_Angeles"});
-
+        clone.setAttribute("disabled", "true");
+        clone.setAttribute("id", "id-today-button");
         clone.setAttribute('onClick', `
         var today = new Date();
         controllerElement = document.querySelectorAll("div[ng-controller='TransactionsCtrl']");
@@ -32,10 +33,13 @@ function todayButton() {
         var scope = angular.element(controllerElement).scope();
         if (scope) {
           scope.$apply(function() {
-            scope.history.startDate = moment(scope.history.now).startOf("day");
-            scope.history.endDate = moment(scope.history.now).endOf("day");
-            scope.fetchHistory();
-            scope.showAll();
+            if (!scope.Spinning && !scope.history.collecting) {
+              this.disabled = true;
+              scope.history.startDate = moment(scope.history.now).startOf("day");
+              scope.history.endDate = moment(scope.history.now).endOf("day");
+              scope.fetchHistory();
+              scope.showAll();
+            }
           });
           
         }
@@ -44,15 +48,20 @@ function todayButton() {
 
         clone = node.cloneNode(true);
         clone.textContent = "<";
+        clone.setAttribute("disabled", "true");
+        clone.setAttribute("id", "id-day-prev-button");
         clone.setAttribute('onClick', `
         controllerElement = document.querySelectorAll("div[ng-controller='TransactionsCtrl']");
         var scope = angular.element(controllerElement).scope();
         if (scope) {
           scope.$apply(function() {
-            scope.history.startDate = scope.history.startDate.subtract(1, "days");
-            scope.history.endDate = scope.history.endDate.subtract(1, "days");
-            scope.fetchHistory();
-            scope.showAll();
+            if (!scope.Spinning && !scope.history.collecting) {
+              this.disabled = true;
+              scope.history.startDate = scope.history.startDate.subtract(1, "days");
+              scope.history.endDate = scope.history.endDate.subtract(1, "days");
+              scope.fetchHistory();
+              scope.showAll();
+            }
           });
         }
         `);
@@ -60,6 +69,8 @@ function todayButton() {
 
         clone = node.cloneNode(true);
         clone.textContent = ">";
+        clone.setAttribute("disabled", "true");
+        clone.setAttribute("id", "id-day-next-button");
         clone.setAttribute('onClick', `
         controllerElement = document.querySelectorAll("div[ng-controller='TransactionsCtrl']");
         var scope = angular.element(controllerElement).scope();
@@ -67,10 +78,13 @@ function todayButton() {
           if (scope.history.startDate.diff(moment(scope.history.now).startOf("day"), 'days')<0
               && scope.history.endDate.diff(moment(scope.history.now).endOf("day"), 'days')<0) {
             scope.$apply(function() {
-              scope.history.startDate = scope.history.startDate.add(1, "days");
-              scope.history.endDate = scope.history.endDate.add(1, "days");
-              scope.fetchHistory();
-              scope.showAll();
+              if (!scope.Spinning && !scope.history.collecting) {
+                this.disabled = true;
+                scope.history.startDate = scope.history.startDate.add(1, "days");
+                scope.history.endDate = scope.history.endDate.add(1, "days");
+                scope.fetchHistory();
+                scope.showAll();
+              }
             });
           }
         }
@@ -120,6 +134,20 @@ function updateTransactionTimestamps() {
 function run() {
     if (fixDates) updateTransactionTimestamps();
     todayButton();
+    var timer = setInterval(function() {
+      controllerElement = document.querySelectorAll("div[ng-controller='TransactionsCtrl']");
+      var scope = angular.element(controllerElement).scope();
+      if (scope) {
+        if (!scope.Spinning && !scope.history.collecting) {
+          document.getElementById('id-today-button').disabled = false;
+          document.getElementById('id-day-prev-button').disabled = false;
+          document.getElementById('id-day-next-button').disabled = false;
+        }
+      }
+    }, 1000);
+
+
+
 }
 
 run();
