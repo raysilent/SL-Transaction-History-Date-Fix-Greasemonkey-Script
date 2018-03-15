@@ -7,7 +7,7 @@ Current version of the script injects "Today" as well as "<" and ">" buttons to 
 
 Why? Since LL started showing 7 days by default with 25 items per page, I thought it was a bit too much to always click the dates instead of just one button. Besides, clicking "Show All" every time became quite annoying. The trick is to request Angular do all necessary modifications. 
 
-Currently it works the best with the [Violentmonkey Firefox Addon](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/).
+Currently it works the best with the [Violentmonkey Firefox and Chrome Addon](https://violentmonkey.github.io/get-it/).
 
 Installation
 ____________
