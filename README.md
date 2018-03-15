@@ -3,7 +3,7 @@ SL-Transaction-History-Date-Fix-Greasemonkey-Script
 
 Current version of the script adds "Today" as well as "<" and ">" buttons to show **all** transaction history items for a single day.
 
-![How it works](https://i.imgur.com/lohF7iP.gif)
+![How it works](https://github.com/raysilent/SL-Transaction-History-Date-Fix-Greasemonkey-Script/raw/master/img/HowItWorks.gif)
 
 Why? Since LL started showing 7 days by default with 25 items per page, I thought it was a bit too much to always click the dates instead of just one button. Besides, clicking "Show All" every time became quite annoying. The trick is to request Angular do all necessary modifications. 
 
